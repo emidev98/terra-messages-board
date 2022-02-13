@@ -1,0 +1,36 @@
+.NewPost{
+
+    .NewPostBody {
+        display: flex;
+        gap: 1em;
+        
+        .NewPostRight {
+            flex-grow: 1;
+
+            span {
+                display: flex;
+                margin-bottom: 2em;
+                
+                input, textarea {
+                    flex-grow: 1;
+                }
+
+                textarea {
+                    min-height: 120px;
+                }
+            }
+        }
+
+        .NewPostLeft {
+
+            .p-fileupload{
+                margin-bottom: 1em;
+            }
+
+            .NewPostFooter {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
+}

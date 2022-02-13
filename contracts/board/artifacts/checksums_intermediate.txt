@@ -1,0 +1,1 @@
+2e71960a7066085b089fe543686e79a9bb5e2a0d7d5f84c89a52a2776fa0278a  ./target/wasm32-unknown-unknown/release/board.wasm
