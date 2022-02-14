@@ -4,8 +4,9 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Card } from "primereact/card";
 import { FileUpload } from "primereact/fileupload";
 import { Button } from "primereact/button";
-import { create } from "ipfs-http-client";
 import "./NewPost.scss";
+import { filesUtilsToBlob } from "../../utils/filesUtilsToBlob";
+import { useIPFS } from "../../Hooks/useIPFS";
 
 interface Props {
   onSubmit: Function
@@ -14,7 +15,7 @@ interface Props {
 export const NewPost = (props: Props) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState({});
   
   const onSubmit = async () => {
     
@@ -25,14 +26,12 @@ export const NewPost = (props: Props) => {
     })
   };
 
-  const onUpload = async(event) =>{
-    /*
-    console.log(event.files[0])
-    const ipfs = create(); // I do not have a gateway to upload files to IPFS
-    const { cid } = await ipfs.add(event.files[0]);
-    setImage(cid.toString())*/
+  const useOnUpload = async(event) => {
+    const file = await filesUtilsToBlob(event.files);
+    const ipfs = await useIPFS();
+    const { cid } = await ipfs.add(file);
 
-    setImage(event.files[0].name)
+    setImage(cid.toString());
   }
 
   return (
@@ -56,7 +55,7 @@ export const NewPost = (props: Props) => {
           <FileUpload customUpload
             url="./upload"
             multiple={false}
-            uploadHandler={onUpload}
+            uploadHandler={useOnUpload}
             chooseLabel="Upload image"
             accept="image"/>
           <div className="NewPostFooter">

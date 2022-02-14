@@ -2,7 +2,6 @@ import './App.scss'
 
 import { useEffect, useState } from 'react'
 import { useConnectedWallet } from '@terra-money/wallet-provider'
-import { create } from 'ipfs-http-client';
 
 import * as execute from './contract/execute'
 import * as query from './contract/query'
