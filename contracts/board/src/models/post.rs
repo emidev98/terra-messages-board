@@ -1,6 +1,5 @@
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use cosmwasm_std::Addr;
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
@@ -9,7 +8,7 @@ pub struct Post {
     title: String,
     body: String,
     image: String,
-    upvotes: HashMap<String, bool>
+    upvotes: Vec<String>
 }
 
 impl Post {
@@ -19,19 +18,19 @@ impl Post {
             title,
             body,
             image,
-            upvotes: HashMap::new()
+            upvotes: Vec::new()
         }
     }
 
-    pub fn toggle_upvote(&mut self, addr: &Addr) {
-        let upvote = &self.upvotes.get(addr.as_str());
-        match upvote {
-            Some(val) => {
-                let toggled = !*val;
-                self.upvotes.insert(addr.to_string(), toggled);
+    pub fn toggle_upvote(&mut self, addr: Addr){
+        let upvoted = self.upvotes.iter().position(|x| *x == addr.as_str());
+
+        match upvoted {
+            Some(index) => {
+                self.upvotes.remove(index);
             },
             None => {
-                self.upvotes.insert(addr.to_string(), true);
+                self.upvotes.push(addr.into_string());
             }
         }
     }
@@ -50,5 +49,9 @@ impl Post {
 
     pub fn get_image(&self) -> &String {
         &self.image
+    }
+    
+    pub fn get_upvotes(&self) -> &Vec<String> {
+        &self.upvotes
     }
 }

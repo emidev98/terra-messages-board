@@ -58,10 +58,10 @@ pub fn try_create(deps: DepsMut, info: MessageInfo, title: String, body: String,
     Ok(Response::new().add_attribute("method", "try_create"))
 }
 pub fn try_toggle_upvote(deps: DepsMut, info: MessageInfo, index: u32) -> Result<Response, ContractError> {
-    STATE.update(deps.storage, |state| -> Result<_, ContractError> {
-        match state.posts.get(index as usize) {
+    STATE.update(deps.storage, |mut state| -> Result<_, ContractError> {
+        match state.posts.get_mut(index as usize) {
             Some(post) => {
-                post.clone().toggle_upvote(&info.sender);
+                post.toggle_upvote(info.sender);
                 Ok(state)
             },
             None => Err(ContractError::PostDoesNotExist{})
@@ -95,4 +95,78 @@ fn get_posts_by_addr(deps: Deps, addr: Addr) -> StdResult<PostsResponse> {
         .collect::<Vec<Post>>();
         
     Ok(PostsResponse { posts })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
+    use cosmwasm_std::{coins, from_binary};
+
+    #[test]
+    fn proper_initialization() {
+        // GIVEN
+        let mut deps = mock_dependencies(&[]);
+        let msg = InstantiateMsg { posts: Vec::new() };
+        let info = mock_info("creator", &coins(1000, "earth"));
+
+        // WHEN
+        let instance_res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // THEN
+        let query_response = query(deps.as_ref(), mock_env(), QueryMsg::GetPosts {}).unwrap();
+        let query_value: PostsResponse = from_binary(&query_response).unwrap();
+        let response : Vec<Post> = Vec::new();
+        
+        assert_eq!(0, instance_res.messages.len());
+        assert_eq!(response, query_value.posts);
+    }
+
+    #[test]
+    fn create_post() {
+        //GIVEN
+        let mut deps = mock_dependencies(&coins(2, "token"));
+        let msg = InstantiateMsg { posts: Vec::new() };
+        let info = mock_info("creator", &coins(2, "token"));
+        let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+        let info = mock_info("anyone", &coins(2, "token"));
+
+        // WHEN
+        let msg = ExecuteMsg::CreatePost { title : String::from("title"), body: String::from("body"), image: String::from("image.png")};
+        let _res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // THEN
+        let res = query(deps.as_ref(), mock_env(), QueryMsg::GetPosts {}).unwrap();
+        let value: PostsResponse = from_binary(&res).unwrap();
+        let posts : Vec<Post> = value.posts;
+        assert_eq!(1, posts.len());
+        assert_eq!("title", posts.get(0).unwrap().get_title());
+        assert_eq!("body", posts.get(0).unwrap().get_body());
+        assert_eq!("image.png", posts.get(0).unwrap().get_image());
+        assert_eq!(0, posts.get(0).unwrap().get_upvotes().len());
+    }
+    
+
+    #[test]
+    fn like_a_created_post() {
+        //GIVEN
+        let mut deps = mock_dependencies(&coins(2, "token"));
+        let msg = InstantiateMsg { posts: Vec::new() };
+        let info = mock_info("creator", &coins(2, "token"));
+        let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
+        let info = mock_info("anyone", &coins(2, "token"));
+        let msg = ExecuteMsg::CreatePost { title : String::from("title"), body: String::from("body"), image: String::from("image.png")};
+        let _res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // WHEN
+        let info = mock_info("anyone", &coins(2, "token"));
+        let msg = ExecuteMsg::ToggleUpvotePost { index : 0};
+        let _res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
+
+        // THEN
+        let res = query(deps.as_ref(), mock_env(), QueryMsg::GetPosts {}).unwrap();
+        let value: PostsResponse = from_binary(&res).unwrap();
+        let posts: &Post = value.posts.get(0).unwrap();
+        assert_eq!(1, posts.get_upvotes().len());
+    }
 }
