@@ -41,8 +41,10 @@ function App() {
         setLoading(true);
         try {
             await execute.createPost(connectedWallet, post);
-            let file = await readFile(post.image);
-            post.imageURL = URL.createObjectURL(new Blob([file]));
+            if (post.image) {
+                let file = await readFile(post.image);
+                post.imageURL = URL.createObjectURL(new Blob([file]));
+            }
             posts.push(post);
             setPosts(posts);
         }
