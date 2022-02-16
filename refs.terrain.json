@@ -1,9 +1,9 @@
 {
   "testnet": {
     "board": {
-      "codeId": "43410",
+      "codeId": "44326",
       "contractAddresses": {
-        "default": "terra1tuq3q5fzyllvss99waqp8shha8p6drve44wr6s"
+        "default": "terra1c3nndadtcllufh8qua79yls5vcxnj2fh5uvk28"
       }
     }
   }

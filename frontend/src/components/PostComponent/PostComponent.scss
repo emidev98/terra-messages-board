@@ -1,0 +1,29 @@
+.PostComponent{
+    margin-bottom: 1em;
+    position: relative;
+    
+    .p-splitter{
+        border: 0;
+    }
+    
+    .PostComponentLeft{
+        overflow: auto;
+    }
+
+    .PostComponentRight{
+        display: flex;
+        flex-direction: column;
+
+        .PostImageWrapper{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            
+            img{
+                max-height: 200px;
+            }
+            
+        }
+    }
+}

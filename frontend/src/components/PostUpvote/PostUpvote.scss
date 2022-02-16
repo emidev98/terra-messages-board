@@ -1,0 +1,16 @@
+.PostUpvote{
+    margin: 1em;
+    text-align: center;
+
+    &.PostAlreadyUpvoted {
+        color: red;
+    }
+    
+    button {
+
+        i,
+        span{
+            margin-right: 0.5em;
+        }
+    }
+}

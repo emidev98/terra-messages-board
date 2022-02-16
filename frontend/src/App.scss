@@ -1,3 +1,15 @@
-.AppContent {
-    margin: 0 1em;
+.App {
+
+    .AppContent{
+        margin: 0 1em;
+
+        .AppConnectWallet {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2em;
+
+        }
+    }
 }

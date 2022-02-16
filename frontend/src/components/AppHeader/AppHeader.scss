@@ -1,6 +1,19 @@
 .AppHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 1em;
+    background-color: #2a323d;
+    
+    .AppHeaderContent {
+        display: flex;
+        align-items: center;
+        margin: 0 1em;
+
+        .AppTitle {
+            flex-grow: 1;
+            font-weight: normal;
+    
+        }
+        
+        button {
+            margin-left: 1em;
+        }
+    }
 }

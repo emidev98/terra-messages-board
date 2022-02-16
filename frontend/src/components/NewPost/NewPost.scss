@@ -1,36 +1,34 @@
 .NewPost{
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
 
-    .NewPostBody {
-        display: flex;
-        gap: 1em;
-        
-        .NewPostRight {
-            flex-grow: 1;
+    .NewPostRight {
+        flex-grow: 1;
 
-            span {
-                display: flex;
-                margin-bottom: 2em;
-                
-                input, textarea {
-                    flex-grow: 1;
-                }
+        span {
+            display: flex;
+            margin-bottom: 2em;
+            
+            input, textarea {
+                flex-grow: 1;
+            }
 
-                textarea {
-                    min-height: 120px;
-                }
+            textarea {
+                min-height: 120px;
             }
         }
+    }
 
-        .NewPostLeft {
+    .NewPostLeft {
 
-            .p-fileupload{
-                margin-bottom: 1em;
-            }
+        .p-fileupload{
+            margin-bottom: 1em;
+        }
 
-            .NewPostFooter {
-                display: flex;
-                justify-content: flex-end;
-            }
+        .NewPostFooter {
+            display: flex;
+            justify-content: flex-end;
         }
     }
 }

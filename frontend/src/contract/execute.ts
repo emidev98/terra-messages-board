@@ -29,7 +29,9 @@ const _exec =
 
       while (true) {
         try {
-          return await lcd.tx.txInfo(result.txhash);
+          const txInfo = await lcd.tx.txInfo(result.txhash);
+
+          return txInfo.tx.body.messages;
         } catch (e) {
           if (Date.now() < untilInterval) {
             await sleep(500);
@@ -52,4 +54,9 @@ export const createPost = async (wallet, post: Post) =>
       body: post.body,
       image: post.image
     }
+  })(wallet);
+
+export const toggleUpvote = async (wallet, index: number) =>
+  _exec({
+    toggle_upvote_post: { index }
   })(wallet);
