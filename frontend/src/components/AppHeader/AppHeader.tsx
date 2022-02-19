@@ -7,6 +7,7 @@ import { Button } from 'primereact/button';
 import { useState } from 'react';
 import { NewPost } from '../NewPost/NewPost';
 import { Divider } from 'primereact/divider';
+import logo from "../../assets/img/logo.png";
 
 interface Props {
     onSubmitNewPost: Function
@@ -37,6 +38,7 @@ export const AppHeader = (props : Props) => {
     return (
         <header className="AppHeader">
             <div className="AppHeaderContent">
+                <img src={logo} alt="logo" className="AppLogo"/>
                 <h1 className="AppTitle">Terra Board</h1>
                 {status === WalletStatus.WALLET_CONNECTED ? (
                     <>

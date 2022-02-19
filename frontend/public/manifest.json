@@ -1,8 +1,0 @@
-{
-  "short_name": "Terra Board",
-  "name": "Simple messages board build on top of Terra",
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}
