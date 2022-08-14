@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 module.exports = {
-  bombay: {
+  test1: {
     mnemonic:
       process.env.MNEMONIC,
   }

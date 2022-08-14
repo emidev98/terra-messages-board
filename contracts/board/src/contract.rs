@@ -100,13 +100,13 @@ fn get_posts_by_addr(deps: Deps, addr: Addr) -> StdResult<PostsResponse> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
+    use cosmwasm_std::testing::{mock_dependencies, mock_info, mock_env};
     use cosmwasm_std::{coins, from_binary};
 
     #[test]
     fn proper_initialization() {
         // GIVEN
-        let mut deps = mock_dependencies(&[]);
+        let mut deps = mock_dependencies();
         let msg = InstantiateMsg { posts: Vec::new() };
         let info = mock_info("creator", &coins(1000, "earth"));
 
@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn create_post() {
         //GIVEN
-        let mut deps = mock_dependencies(&coins(2, "token"));
+        let mut deps = mock_dependencies();
         let msg = InstantiateMsg { posts: Vec::new() };
         let info = mock_info("creator", &coins(2, "token"));
         let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
@@ -150,7 +150,7 @@ mod tests {
     #[test]
     fn like_a_created_post() {
         //GIVEN
-        let mut deps = mock_dependencies(&coins(2, "token"));
+        let mut deps = mock_dependencies();
         let msg = InstantiateMsg { posts: Vec::new() };
         let info = mock_info("creator", &coins(2, "token"));
         let _res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();

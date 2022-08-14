@@ -1,8 +1,23 @@
 # Terra Board
 
-Project bootstrapped with [Terrain](https://github.com/iboss-ptk/terrain). The project contists on a posts board which allows you to:
+DAPP to create posts which will be stored in Terra Blockchain with a photo that will be stored on IPFS.
 
-- Create posts.
-- The posts can contain a title, body and image.
-- You can also like the posts that you most enjoyed.
-- The images are hosted on IPFS. 
+Website deployed to [board.decentryfi.xyz](http://board.decentryfi.xyz/);
+
+| Network     | Code ID     | Contract Address |
+| ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Testnet     |   1945      | [terra1ld5f9g2f88l2fys57w96k5wycnf7u3394qqx7z2l9l9apdwv880q8z69ll](https://finder.terra.money/testnet/address/terra1ld5f9g2f88l2fys57w96k5wycnf7u3394qqx7z2l9l9apdwv880q8z69ll) |
+
+# Frontend Design
+
+> When wallet is not connected
+
+![Wallet not connected](./assets/wallet-not-connected.png)
+
+> Posts list
+
+![Posts list](./assets/posts-list.png)
+
+> New post
+
+![New post](./assets/new-post.png)

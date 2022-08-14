@@ -9,7 +9,7 @@ const until = Date.now() + 1000 * 60 * 60;
 const untilInterval = Date.now() + 1000 * 60;
 
 const _exec =
-  (msg, fee = new Fee(200000, { uluna: 10000 })) =>
+  (msg) =>
     async (wallet) => {
       const lcd = new LCDClient({
         URL: wallet.network.lcd,
@@ -17,7 +17,6 @@ const _exec =
       });
 
       const { result } = await wallet.post({
-        fee,
         msgs: [
           new MsgExecuteContract(
             wallet.walletAddress,
