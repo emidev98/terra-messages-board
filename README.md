@@ -2,7 +2,7 @@
 
 DAPP to create posts which will be stored in Terra Blockchain with a photo that will be stored on IPFS.
 
-Website deployed to [board.decentryfi.xyz](http://board.decentryfi.xyz/);
+Website deployed to [board.emidev98.xyz](https://board.emidev98.xyz/);
 
 | Network     | Code ID     | Contract Address |
 | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
